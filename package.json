@@ -1,0 +1,32 @@
+{
+  "name": "eco-patcher",
+  "version": "0.0.1",
+  "description": "EverCraft Online Patch and Launch Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EnigmaFactory/eco-patcher.git"
+  },
+  "keywords": [
+    "patcher",
+    "evercraft",
+    "evercraftonline",
+    "launcher",
+    "patcher",
+    "update",
+    "eco",
+    "mmorpg"
+  ],
+  "author": "h1ddentree productions",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EnigmaFactory/eco-patcher/issues"
+  },
+  "homepage": "https://github.com/EnigmaFactory/eco-patcher#readme",
+  "devDependencies": {
+    "electron": "^26.1.0"
+  }
+}
