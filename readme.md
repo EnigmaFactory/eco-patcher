@@ -14,9 +14,10 @@ The official patcher for EverCraft Online, built using Electron. This patcher en
 ### Installation
 
 1. Clone this repository:
-   ```git clone https://github.com/YourUsername/eco-patcher.git```
 
-2. Navigate to the cloned directory:
+```git clone https://github.com/YourUsername/eco-patcher.git```
+
+3. Navigate to the cloned directory:
 
 ```cd eco-patcher```
 
