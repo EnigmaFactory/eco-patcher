@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
 const AdmZip = require('adm-zip');
+const { ipcMain } = require('electron');
 
 let mainWindow;
 
@@ -12,7 +13,9 @@ function createWindow() {
         width: 800,
         height: 600,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            contextIsolation: false,
+            enableRemoteModule: true
         }
     });
 
@@ -47,9 +50,10 @@ function checkForUpdates() {
         })
         .catch(error => {
             console.error("Error checking for updates:", error);
-            // Handle error or notify the user
+            downloadAndExtractGame(); // Fallback to downloading the game if API call fails
         });
 }
+
 
 function getLocalVersion() {
     // Retrieve local version from a file or local setting
@@ -63,6 +67,18 @@ function downloadAndExtractGame() {
 
     axios.get('https://www.evercraftonline.com/client', { responseType: 'stream' })
         .then(response => {
+            const totalLength = parseInt(response.headers['content-length'], 10);
+            let downloaded = 0;
+            
+            // As we receive data chunks, update the downloaded amount and send progress
+            response.data.on('data', (chunk) => {
+                downloaded += chunk.length;
+                const progress = parseFloat((downloaded / totalLength * 100).toFixed(2));
+                
+                // Send progress to renderer
+                mainWindow.webContents.send('download-progress', progress);
+            });
+
             const writer = fs.createWriteStream(zipPath);
             response.data.pipe(writer);
 
@@ -76,26 +92,40 @@ function downloadAndExtractGame() {
 
             writer.on('error', err => {
                 console.error("Error writing zip file:", err);
-                // Handle error
+                // Send an error to the renderer if you wish
+                mainWindow.webContents.send('download-error', 'An error occurred while downloading.');
             });
         })
         .catch(error => {
             console.error("Error downloading game:", error);
-            // Handle error
+            // Send an error to the renderer if you wish
+            mainWindow.webContents.send('download-error', 'Could not download the game.');
         });
 }
 
+
 function launchGame() {
     // Adjust this path if necessary based on your extracted structure
-    exec('./Client/EverCraftOnline.exe', (error, stdout, stderr) => {
+    const gamePath = path.join('Client', 'EverCraftOnline.exe');
+    exec(gamePath, (error, stdout, stderr) => {
         if (error) {
             console.error(`exec error: ${error}`);
             return;
         }
         console.log(`stdout: ${stdout}`);
         console.error(`stderr: ${stderr}`);
+
+        app.quit();  // Close the Electron app
     });
 }
+
+// Listen for the 'repair-requested' event from the renderer process
+ipcMain.on('repair-requested', () => {
+    downloadAndExtractGame();
+});
+
+// If you want to send a message to the renderer process
+// mainWindow.webContents.send('some-event', 'Hello from main!');
 
 // Call the checkForUpdates function when the Electron app starts
 checkForUpdates();

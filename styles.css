@@ -49,3 +49,29 @@ progress[value]::-webkit-progress-value {
 progress[value]::-moz-progress-bar {
     background-color: #4a90e2;
 }
+
+button {
+    padding: 10px 20px;
+    background: linear-gradient(to right, #4a90e2, #508bf9); /* Gradient background from blue to slightly lighter blue */
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 1em;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer; /* Change the mouse pointer on hover to indicate the element is clickable */
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+    outline: none; /* Remove the default focus outline */
+    margin-top: 20px; /* Add spacing at the top */
+}
+
+button:hover {
+    background: linear-gradient(to right, #508bf9, #4a90e2); /* Swap gradient colors on hover */
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3); /* Make the shadow slightly more pronounced */
+    transform: translateY(-2px); /* Lift the button up a bit */
+}
+
+button:active {
+    transform: translateY(1px); /* Push the button down a bit when clicked */
+    box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); /* Reduce the shadow size to give the illusion of the button being pressed */
+}
+

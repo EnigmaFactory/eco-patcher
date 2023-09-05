@@ -1,14 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="styles.css">
 <head>
-    <title>EverCraft Online Patcher</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EverCraftOnline Launcher</title>
 </head>
 <body>
-    <div class="container">
-        <h1>EverCraft Online Patcher</h1>
-        <p>Checking for updates...</p>
-        <progress id="progressBar" max="100"></progress>
+    <div id="app" class="container">
+        <h1>EverCraftOnline Launcher</h1>
+        <div id="status">Checking for updates...</div>
+        <progress id="progressBar" max="100" value="0"></progress>
+        <br>        
+        <button id="repairButton">Repair</button>
     </div>
 
     <script src="renderer.js"></script>
