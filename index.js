@@ -42,7 +42,7 @@ app.on('activate', function () {
 });
 
 function checkForUpdates() {
-    axios.get('https://api.evercraftonline.com/versions?newest')
+    axios.get('https://evercraftonline.com/versions')
         .then(response => {
             let serverVersion = response.data.version;
             let localVersion = getLocalVersion();
@@ -58,7 +58,6 @@ function checkForUpdates() {
             downloadAndExtractGame(); // Fallback to downloading the game if API call fails
         });
 }
-
 
 function getLocalVersion() {
     // Retrieve local version from a file or local setting
@@ -109,7 +108,6 @@ function downloadAndExtractGame() {
             mainWindow.webContents.send('download-error', 'Could not download the game.');
         });
 }
-
 
 function launchGame() {
     // Adjust this path if necessary based on your extracted structure
