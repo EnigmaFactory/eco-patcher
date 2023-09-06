@@ -16,10 +16,15 @@ function createWindow() {
             nodeIntegration: true,
             contextIsolation: false,
             enableRemoteModule: true
-        }
+        },
+        icon: path.join(__dirname, 'assets/favicon.png') // or 'assets/icon.ico' for Windows
     });
 
     mainWindow.loadFile('index.html');
+
+    // Hide Menu Bar - Alt to Show
+    mainWindow.autoHideMenuBar = true;
+    // mainWindow.setMenu(null);
 
     mainWindow.on('closed', function () {
         mainWindow = null;
@@ -76,7 +81,9 @@ function downloadAndExtractGame() {
                 const progress = parseFloat((downloaded / totalLength * 100).toFixed(2));
                 
                 // Send progress to renderer
-                mainWindow.webContents.send('download-progress', progress);
+                if (mainWindow && !mainWindow.isDestroyed()) {
+                    mainWindow.webContents.send('download-progress', progress);
+                }
             });
 
             const writer = fs.createWriteStream(zipPath);
