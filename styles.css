@@ -1,58 +1,59 @@
 body {
-    font-family: 'Roboto', sans-serif; /* Assuming Roboto, but change to any preferred font */
+    font-family: 'Roboto', sans-serif;
     background: url('assets/ECO_AlardsBanner1620.png') no-repeat center center fixed;
     background-size: cover;
     color: #f1f1f1;
     display: flex;
+    flex-direction: column;
     height: 100vh;
-    align-items: center;
-    flex-direction: column; /* Stack elements vertically */
-    justify-content: center; /* Push content to the bottom */
+    justify-content: space-between;
     margin: 0;
     padding: 0;
 }
 
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
 .logo {
-    width: 70%;               /* Take up 70% of the viewport's width */
-    text-align: center;       /* Ensure the image is centered in its container */
-    margin-bottom: 20px;      /* Some space between the logo and the container */
+    flex: 1;
 }
 
 .logo img {
-    width: 100%;              /* Stretch the image to the width of its container */
-    height: auto;             /* Keep the aspect ratio of the image */
-    max-width: 100%;          /* Ensure the image doesn't go beyond its container */
+    width: 200px; /* Adjust this value to your preferred size */
+    margin: 20px 0 20px 20px; /* Add some margin to move it away from the top and left edges */
 }
 
-.container {    
-    padding: 20px 40px;
-    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black */
-    border: 2px solid #4a90e2; /* Blue border */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+#status {
+    flex: 2;
+    text-align: center;
+}
+
+.content {
+    overflow-y: auto;
+    max-height: 60%;
+    margin: 0 20px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
     border-radius: 8px;
-    position: absolute;
-    min-width: 70%;
-    bottom: 5px; /* Distance from the bottom */
-    left: 50%; /* To horizontally center */
-    transform: translateX(-50%); /* To ensure precise horizontal centering */
 }
 
-h1 {
-    text-align: center;
-    font-size: 2em;
-    margin-bottom: 20px;
-    color: #4a90e2; /* Blue text */
-}
-
-p {
-    text-align: center;
-    margin-bottom: 20px;
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
 }
 
 progress {
-    width: 100%;
-    border: none;
-    height: 20px;
+    width: 90%;
+    height: 30px;
+    margin-bottom: 20px;
+    border: none;    
     background-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -92,4 +93,88 @@ button:active {
     transform: translateY(1px); /* Push the button down a bit when clicked */
     box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2); /* Reduce the shadow size to give the illusion of the button being pressed */
 }
+
+.top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gear-icon {
+    cursor: pointer;
+    font-size: 1.5em;
+    position: absolute;  /* Makes the gear icon positioned relative to the entire page */
+    top: 10px;           /* Distance from the top of the page */
+    right: 10px;         /* Distance from the right side of the page */
+}
+
+
+#progress-section {
+    width: 80%; /* Adjust this value to your preferred width for the progress bar */
+    margin: 20px auto; /* This ensures the progress bar is horizontally centered and has some space around it */
+    text-align: center; /* To center the text (like percentage) inside this container */
+}
+
+#download-percent {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.settings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+.patchNotes {
+    margin: 20px auto;
+    width: 80%;  /* Adjust to your desired width */
+    border: 1px solid #ddd;
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;  /* Allows the patch notes section to take up the available space */
+    display: block;  /* Ensures the section behaves as a block element */
+    background-color: rgba(0, 0, 0, 0.8);  /* Semi-transparent black */
+    border-radius: 10px;  /* Rounded corners */
+    color: #FFF; /* Set text color to white for better visibility */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);  /* Add subtle shadow */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;  /* takes up the full viewport height */
+    /* ... any other styles ... */
+}
+
+/* Custom scrollbar for Webkit browsers */
+.patchNotes::-webkit-scrollbar {
+    width: 10px;
+}
+
+.patchNotes::-webkit-scrollbar-thumb {
+    background-color: #999; 
+    border-radius: 5px; 
+}
+
+.patchNotes::-webkit-scrollbar-track {
+    background-color: #f5f5f5;
+    border-radius: 5px; 
+}
+
+.patchNotes h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+
+
 

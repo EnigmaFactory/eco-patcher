@@ -21,6 +21,16 @@ function updateProgress(percentage) {
     progressBar.value = percentage;
 }
 
+document.querySelector('.gear-icon').addEventListener('click', () => {
+    const settings = document.querySelector('.settings');
+    if (settings.classList.contains('hidden')) {
+        settings.classList.remove('hidden');
+    } else {
+        settings.classList.add('hidden');
+    }
+});
+
+
 let isPaused = false;
 
 document.getElementById('pauseResumeButton').addEventListener('click', () => {
@@ -40,4 +50,26 @@ ipcRenderer.on('download-paused', () => {
 ipcRenderer.on('download-resumed', () => {
     document.getElementById('pauseResumeButton').textContent = 'Pause';
 });
+
+window.onload = function() {
+    fetch('https://evercraftonline.com/patchNotes')
+        .then(response => {
+            if(!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.text();
+        })
+        .then(data => {
+            let parser = new DOMParser();
+            let doc = parser.parseFromString(data, 'text/html');
+            let notes = doc.querySelector('#notesSectionTag');
+            document.getElementById('patchNotes').innerHTML = notes ? notes.innerHTML : "Couldn't fetch patch notes";
+        })
+        .catch(error => {
+            console.error("Error fetching patch notes:", error);
+            document.getElementById('patchNotes').innerText = "Failed to load patch notes.";
+        });
+}
+
+
 

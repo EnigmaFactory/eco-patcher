@@ -1,22 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" type="text/css" href="styles.css">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <title>EverCraftOnline Launcher</title>
 </head>
+
 <body>
+    <div class="gear-icon">&#9881;</div> <!-- Moved out of the container -->
+
     <div class="logo">
         <img src="assets/eco-logo.png" alt="EverCraftOnline Logo">
     </div>
-    <div id="app" class="container">        
-        <div id="status">Checking for updates...</div>
-        <progress id="progressBar" max="100" value="0"></progress>
-        <br>        
-        <button id="repairButton">Repair</button>
+    <div id="app" class="container">
+        <!-- Patch notes area -->
+        <div id="patchNotes" class="patchNotes">
+            <h2>Latest Patch Notes</h2>
+            Attempting to fetch patch notes...
+        </div>
+
+        <div class="top-section">
+            <div id="status">Checking for updates...</div>
+        </div>
+
+        <div id="progress-section">
+            <span id="download-percent"></span> <!-- Removed the default 0% -->
+            <progress id="progressBar" max="100" value="0"></progress>
+        </div>
+
+        <div class="settings hidden">
+            <button id="repairButton">Repair</button>
+        </div>
     </div>
 
     <script src="renderer.js"></script>
 </body>
+
 </html>
