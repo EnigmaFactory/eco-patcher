@@ -1,5 +1,5 @@
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'MerriweatherSans', sans-serif;
     background: url('assets/ECO_AlardsBanner1620.png') no-repeat center center fixed;
     background-size: cover;
     color: #f1f1f1;
@@ -9,6 +9,13 @@ body {
     justify-content: space-between;
     margin: 0;
     padding: 0;
+}
+
+@font-face {
+    font-family: 'MerriweatherSans';
+    src: url('./assets/MerriweatherSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 .header {
@@ -80,7 +87,8 @@ button {
     cursor: pointer; /* Change the mouse pointer on hover to indicate the element is clickable */
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
     outline: none; /* Remove the default focus outline */
-    margin-top: 20px; /* Add spacing at the top */
+    margin-top: 10px; /* Add spacing at the top */
+    margin-bottom: 10px;  /* Adjust the distance from the bottom */
 }
 
 button:hover {
@@ -108,7 +116,6 @@ button:active {
     right: 10px;         /* Distance from the right side of the page */
 }
 
-
 #progress-section {
     width: 80%; /* Adjust this value to your preferred width for the progress bar */
     margin: 20px auto; /* This ensures the progress bar is horizontally centered and has some space around it */
@@ -126,6 +133,8 @@ button:active {
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    height: 40px; /* or whatever height you find appropriate */
+    padding-bottom: 10px;
 }
 
 .hidden {
@@ -144,6 +153,7 @@ button:active {
     border-radius: 10px;  /* Rounded corners */
     color: #FFF; /* Set text color to white for better visibility */
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);  /* Add subtle shadow */
+    overflow: auto;    /* If content exceeds max-height, a scrollbar will appear inside patchNotes. */
 }
 
 .container {
@@ -174,7 +184,3 @@ button:active {
     border-bottom: 2px solid #ddd;
     padding-bottom: 10px;
 }
-
-
-
-

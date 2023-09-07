@@ -1,75 +1,61 @@
 const { ipcRenderer } = require('electron');
 
-const statusDiv = document.getElementById('status');
-const progressBar = document.getElementById('progressBar');
+// Use the DOMContentLoaded event to wait until the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', function () {
 
-ipcRenderer.on('download-progress', (event, percentage) => {
-    updateProgress(percentage);
-    updateMessage(`Downloading: ${percentage.toFixed(2)}%`);
-});
+    const statusDiv = document.getElementById('status');
+    const progressBar = document.getElementById('progressBar');
 
-ipcRenderer.on('download-error', (event, message) => {
-    updateMessage(message);
-    // Possibly display an error pop-up or change the UI to indicate an error
-});
+    ipcRenderer.on('download-progress', (event, percentage) => {
+        updateProgress(percentage);
+        updateMessage(`Downloading: ${percentage.toFixed(2)}%`);
+    });
 
-function updateMessage(message) {
-    statusDiv.textContent = message;
-}
+    ipcRenderer.on('download-error', (event, message) => {
+        updateMessage(message);
+        // Possibly display an error pop-up or change the UI to indicate an error
+    });
 
-function updateProgress(percentage) {
-    progressBar.value = percentage;
-}
-
-document.querySelector('.gear-icon').addEventListener('click', () => {
-    const settings = document.querySelector('.settings');
-    if (settings.classList.contains('hidden')) {
-        settings.classList.remove('hidden');
-    } else {
-        settings.classList.add('hidden');
+    function updateMessage(message) {
+        statusDiv.textContent = message;
     }
-});
 
-
-let isPaused = false;
-
-document.getElementById('pauseResumeButton').addEventListener('click', () => {
-    if (isPaused) {
-        ipcRenderer.send('resume-download');
-        isPaused = false;
-    } else {
-        ipcRenderer.send('pause-download');
-        isPaused = true;
+    function updateProgress(percentage) {
+        progressBar.value = percentage;
     }
+
+    document.querySelector('.gear-icon').addEventListener('click', () => {
+        const settings = document.querySelector('.settings');
+        if (settings.classList.contains('hidden')) {
+            settings.classList.remove('hidden');
+        } else {
+            settings.classList.add('hidden');
+        }
+    });
+
+    fetchPatchNotes()
 });
 
-ipcRenderer.on('download-paused', () => {
-    document.getElementById('pauseResumeButton').textContent = 'Resume';
-});
-
-ipcRenderer.on('download-resumed', () => {
-    document.getElementById('pauseResumeButton').textContent = 'Pause';
-});
-
-window.onload = function() {
+function fetchPatchNotes() {
     fetch('https://evercraftonline.com/patchNotes')
         .then(response => {
-            if(!response.ok) {
+            if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
             return response.text();
         })
         .then(data => {
-            let parser = new DOMParser();
-            let doc = parser.parseFromString(data, 'text/html');
-            let notes = doc.querySelector('#notesSectionTag');
-            document.getElementById('patchNotes').innerHTML = notes ? notes.innerHTML : "Couldn't fetch patch notes";
+            // Extract content between the patch notes comments
+            const patchNotesRegex = /<!--PATCH NOTES START-->([\s\S]*?)<!--PATCH NOTES END-->/;
+            const match = data.match(patchNotesRegex);
+            if (match && match[1]) {
+                document.getElementById('patchNotes').innerHTML = match[1].trim();
+            } else {
+                throw new Error("Could not extract patch notes");
+            }
         })
         .catch(error => {
             console.error("Error fetching patch notes:", error);
             document.getElementById('patchNotes').innerText = "Failed to load patch notes.";
         });
 }
-
-
-

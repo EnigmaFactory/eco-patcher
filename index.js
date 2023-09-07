@@ -23,8 +23,8 @@ function createWindow() {
     mainWindow.loadFile('index.html');
 
     // Hide Menu Bar - Alt to Show
-    mainWindow.autoHideMenuBar = true;
-    mainWindow.setMenu(null);
+    //mainWindow.autoHideMenuBar = true;
+    //mainWindow.setMenu(null);
 
     mainWindow.on('closed', function () {
         mainWindow = null;
