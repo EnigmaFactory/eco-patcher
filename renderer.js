@@ -24,14 +24,43 @@ document.addEventListener('DOMContentLoaded', function () {
         progressBar.value = percentage;
     }
 
-    document.querySelector('.gear-icon').addEventListener('click', () => {
-        const settings = document.querySelector('.settings');
-        if (settings.classList.contains('hidden')) {
-            settings.classList.remove('hidden');
+    const settings = document.querySelector('.settings');
+    const patchNotes = document.getElementById('.patchNotes');
+    
+    let gearIcon = document.querySelector('.gear-icon');
+    let patchIcon = document.querySelector('.patch-icon');
+    
+    if(gearIcon) {
+        gearIcon.addEventListener('click', function() {
+            toggleVisibility('.settings');
+            hide('.patchNotes');
+        });
+    }
+    
+    if(patchIcon) {
+        patchIcon.addEventListener('click', function() {
+            toggleVisibility('.patchNotes');
+            hide('.settings');
+        });
+    }
+    
+    
+    function toggleVisibility(selector) {
+        const el = document.querySelector(selector);
+        if (el.classList.contains('hidden')) {
+            el.classList.remove('hidden');
         } else {
-            settings.classList.add('hidden');
+            el.classList.add('hidden');
         }
-    });
+    }
+    
+    function hide(selector) {
+        const el = document.querySelector(selector);
+        if (!el.classList.contains('hidden')) {
+            el.classList.add('hidden');
+        }
+    }
+    
 
     fetchPatchNotes()
 });
