@@ -5,7 +5,29 @@
   "main": "index.js",
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "build": "electron-builder --win --x64"
+  },
+  "build": {
+    "appId": "eco.patcher",
+    "asar": true,
+    "icon": "assets/favicon256.ico",
+    "artifactName": "EverCraft Online Setup v${version}.exe",    
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "devDependencies": {
+    "electron": "^26.1.0",
+    "electron-builder": "^24.6.4",
+    "electron-packager": "^17.1.2"
   },
   "repository": {
     "type": "git",
@@ -27,11 +49,8 @@
     "url": "https://github.com/EnigmaFactory/eco-patcher/issues"
   },
   "homepage": "https://github.com/EnigmaFactory/eco-patcher#readme",
-  "devDependencies": {
-    "electron": "^26.1.0"
-  },
   "dependencies": {
     "adm-zip": "^0.5.10",
     "axios": "^1.5.0"
-  }  
+  }
 }

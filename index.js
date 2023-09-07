@@ -24,7 +24,7 @@ function createWindow() {
 
     // Hide Menu Bar - Alt to Show
     mainWindow.autoHideMenuBar = true;
-    //mainWindow.setMenu(null);
+    mainWindow.setMenu(null);
 
     mainWindow.on('closed', function () {
         mainWindow = null;
@@ -42,7 +42,7 @@ app.on('activate', function () {
 });
 
 function checkForUpdates() {
-    axios.get('https://evercraftonline.com/versions')
+    axios.get('https://evercraftonline.com/versions?latest=true')
         .then(response => {
             let serverVersion = response.data.version;
             let localVersion = getLocalVersion();
@@ -62,7 +62,7 @@ function checkForUpdates() {
 function getLocalVersion() {
     // Retrieve local version from a file or local setting
     // This is a mock; replace with your method of tracking local version
-    return "0.7.17";
+    return "0.7.19";
 }
 
 function downloadAndExtractGame() {

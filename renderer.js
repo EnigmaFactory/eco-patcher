@@ -44,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
     
-    
     function toggleVisibility(selector) {
         const el = document.querySelector(selector);
         if (el.classList.contains('hidden')) {
